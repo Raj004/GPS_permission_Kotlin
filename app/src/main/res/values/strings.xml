@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Gps_Enable</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_location_permission">GPS</string>
+    <string name="text_location_permission">Please allow location!</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Not allow</string>
+    <string name="title_activity_home">HomeActivity</string>
+</resources>
