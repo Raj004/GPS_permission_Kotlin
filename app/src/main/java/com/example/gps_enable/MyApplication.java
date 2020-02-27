@@ -10,9 +10,10 @@ public class MyApplication extends Application {
         return activityVisible; // return true or false
     }
 
-    public static void activityResumed(){
+    public static void activityResumed() {
         activityVisible = true;
     }
+
     public static void activityPaused() {
         activityVisible = false;// this will set false when activity paused
 

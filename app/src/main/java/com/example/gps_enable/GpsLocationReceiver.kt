@@ -7,19 +7,20 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.widget.Toast
 
 class GpsLocationReceiver : BroadcastReceiver(), LocationListener {
+    private var context: Context? = null
+
     override fun onReceive(context: Context, intent: Intent) {
         if (LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
             val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
             val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
             if (isGpsEnabled || isNetworkEnabled) {
-                MainActivity().changeGPSEnable()
+                MainActivity().changeGPSEnable(context)
 
             } else {
-                MainActivity().changeGPSDisable()
+                MainActivity().changeGPSDisable(context)
 
             }
         }

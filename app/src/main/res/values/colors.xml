@@ -3,4 +3,16 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="profile_down_light">#f0f0f0</color>
+
+
+    <color name="sign_up">#5B9F38</color>
+    <color name="txt_edit_color">#161616</color>
+    <color name="txt_light_color">#3D3A3A</color>
+    <color name="txt_low_light">#8B8A8A</color>
+    <color name="profile_top">#373636</color>
+
+
 </resources>

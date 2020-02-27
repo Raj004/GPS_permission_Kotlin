@@ -1,6 +1,5 @@
 package com.example.gps_enable
 
-import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 
 import android.app.Activity
@@ -9,7 +8,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -18,10 +16,9 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
 import android.location.LocationManager
+import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
+import kotlinx.android.synthetic.main.dialog_location_permission.view.*
 
 class MainActivity : AppCompatActivity() {
     val MY_PERMISSIONS_REQUEST_LOCATION = 99
@@ -36,34 +33,57 @@ class MainActivity : AppCompatActivity() {
             val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)==true) {
                 checkGPSEnable()
-                changeGPSDisable()
+                changeGPSDisable(this)
             }else{
                 mapReadyToast()
-                changeGPSEnable()
+                changeGPSEnable(this)
 
             }
         }
 
     }
 
-     fun changeGPSEnable() {
+     fun changeGPSEnable(context: Context) {
          Log.e("GPS Enable","GPS on")
+         Toast.makeText(context, "GPS is On!", Toast.LENGTH_LONG).show()
+
 
     }
 
-     fun changeGPSDisable() {
+     fun changeGPSDisable(context: Context) {
          Log.e("GPS Disable","GPS off")
+         Toast.makeText(context, "GPS is Off!", Toast.LENGTH_LONG).show()
 
 
      }
 
     private fun mapReadyToast(){
-        Toast.makeText(this@MainActivity, "Map is Ready!", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "Map is Ready!", Toast.LENGTH_LONG).show()
         startActivity(Intent(this@MainActivity,HomeActivity::class.java))
 
 
     }
+
+
     private fun checkGPSEnable() {
+        val factory = LayoutInflater.from(this)
+        val deleteDialogView = factory.inflate(R.layout.dialog_location_permission, null)
+        val deleteDialog = AlertDialog.Builder(this).create()
+        deleteDialog.setView(deleteDialogView)
+        deleteDialogView.btn_yes?.setOnClickListener {
+            enablegps()
+            Toast.makeText(applicationContext, "Location enable", Toast.LENGTH_LONG).show()
+            deleteDialog.dismiss()
+        }
+        deleteDialogView.btn_no?.setOnClickListener {
+            deleteDialog.cancel()
+            Toast.makeText(applicationContext, "Location not enable", Toast.LENGTH_LONG).show()
+
+        }
+        deleteDialog.show()
+
+    }
+  /*  private fun checkGPSEnable() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)
@@ -76,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 })
         val alert = dialogBuilder.create()
         alert.show()
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
